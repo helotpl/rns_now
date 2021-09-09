@@ -168,6 +168,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	var selectedNames []string
 	for _, x := range list {
 		//fmt.Println(htmlquery.OutputHTML(x, true))
 		nameNode := htmlquery.FindOne(x, "//h3[@class='proradio-post__title proradio-cutme-t-2 proradio-h4']/a")
@@ -179,6 +180,14 @@ func main() {
 			log.Fatal(err)
 		}
 		tr.MoveMinsBack(10)
-		fmt.Println(name, FileNameizeString(name, true), timeRange, tr.String(), tr.IsCurrent())
+		if tr.IsCurrent() {
+			selectedNames = append(selectedNames, FileNameizeString(name, true))
+		}
+		//fmt.Println(name, FileNameizeString(name, true), timeRange, tr.String(), tr.IsCurrent())
+	}
+	if len(selectedNames) == 1 {
+		fmt.Print(selectedNames[0])
+	} else {
+		log.Fatal("zero or more than one name matches")
 	}
 }
