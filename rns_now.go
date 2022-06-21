@@ -162,18 +162,18 @@ func main() {
 		log.Fatal(err)
 	}
 
-	data := htmlquery.FindOne(doc, "//*[starts-with(@id,'proradio-upcomingcarousel-c')]")
+	data := htmlquery.FindOne(doc, "/html/body/main/div[2]/div/div/ul")
 
-	list, err := htmlquery.QueryAll(data, "//*[@class=\"proradio-post__card__cap\"]")
+	list, err := htmlquery.QueryAll(data, "/li")
 	if err != nil {
 		log.Fatal(err)
 	}
 	var selectedNames []string
 	for _, x := range list {
 		//fmt.Println(htmlquery.OutputHTML(x, true))
-		nameNode := htmlquery.FindOne(x, "//h3[@class='proradio-post__title proradio-cutme-t-2 proradio-h4']/a")
+		nameNode := htmlquery.FindOne(x, "/div[2]/div[2]/a/h2/span")
 		name := strings.TrimSpace(htmlquery.InnerText(nameNode))
-		timeNode := htmlquery.FindOne(x, "//p[@class='proradio-itemmetas']")
+		timeNode := htmlquery.FindOne(x, "/div[2]/div[1]/div")
 		timeRange := strings.TrimSpace(htmlquery.InnerText(timeNode))
 		tr, err := ParseTimeRange(timeRange, " - ")
 		if err != nil {
