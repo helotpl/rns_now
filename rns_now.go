@@ -185,9 +185,9 @@ func main() {
 		}
 		//fmt.Println(name, FileNameizeString(name, true), timeRange, tr.String(), tr.IsCurrent())
 	}
-	if len(selectedNames) == 1 {
+	if len(selectedNames) > 0 {
 		fmt.Print(selectedNames[0])
 	} else {
-		log.Fatal("zero or more than one name matches")
+		log.Fatal("zero names match")
 	}
 }
